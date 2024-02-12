@@ -28,12 +28,13 @@ export async function urlGetShortByIdComp(id) {
 
 export async function getUrlShortById(id) {
     const query = `
-    SELECT id, shorturl, url 
+    SELECT id, shorturl as shortUrl, url 
     FROM urls 
     WHERE id = $1;
   `;
     return db.query(query, [id]);
 }
+
 
 export async function updateUrl(id) {
     const query = `
