@@ -19,11 +19,16 @@ export async function shortenUrls(req, res) {
     const userId = res.locals.userId;
     await insertShortUrl(url, shortUrl, userId);
     const createdShortUrl = await getUrlShort(shortUrl);
-    res.status(201).send(createdShortUrl.rows[0]);
+    const response = {
+      id: createdShortUrl.rows[0].id,
+      shortUrl: createdShortUrl.rows[0].shorturl,
+    };
+    res.status(201).send(response);
   } catch (err) {
     res.status(500).send(err.message);
   }
 }
+
 
 
 export async function deleteTsUrl(req, res) {
