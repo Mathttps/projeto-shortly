@@ -1,6 +1,6 @@
 import db from '../database/dbconnection.js';
 
-export async function inserShortUrlts(url, shortUrl, userId) {
+export async function insertShortUrl(url, shortUrl, userId) {
     const query = `
     INSERT INTO urls(url, shortUrl, userId) 
     VALUES ($1, $2, $3);

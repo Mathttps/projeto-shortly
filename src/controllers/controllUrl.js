@@ -1,6 +1,5 @@
 import { nanoid } from "nanoid";
-import {  getUrlShortById, deleteShortUrl, inserShortUrlts, getUrlShort, urlGetShortByIdComp,  updateUrl } from "../repositories/repoUrl.js";
-
+import {  getUrlShortById, deleteShortUrl, insertShortUrl, getUrlShort, urlGetShortByIdComp,  updateUrl } from "../repositories/repoUrl.js";
 
 export async function getUrl(req, res) {
   const { id } = req.params;
@@ -18,7 +17,7 @@ export async function shortenUrls(req, res) {
   try {
     const shortUrl = nanoid();
     const userId = res.locals.userId;
-    await inserShortUrlts(url, shortUrl, userId);
+    await insertShortUrl(url, shortUrl, userId);
     const createdShortUrl = await getUrlShort(shortUrl);
     res.status(201).send(createdShortUrl.rows[0]);
   } catch (err) {
