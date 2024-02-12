@@ -27,7 +27,7 @@ SET default_table_access_method = heap;
 CREATE TABLE public.sessions (
     id integer NOT NULL,
     "createdAt" timestamp without time zone DEFAULT now(),
-    "userId" integer NOT NULL,
+    "userid" integer NOT NULL, -- Alterado de "userId" para "userid"
     token text NOT NULL
 );
 
@@ -62,7 +62,7 @@ CREATE TABLE public.urls (
     "createdAt" timestamp without time zone DEFAULT now(),
     "visitCount" integer DEFAULT 0,
     "shortUrl" text NOT NULL,
-    "userId" integer NOT NULL
+    "userid" integer NOT NULL -- Alterado de "userId" para "userid"
 );
 
 
@@ -208,7 +208,7 @@ ALTER TABLE ONLY public.users
 --
 
 ALTER TABLE ONLY public.sessions
-    ADD CONSTRAINT "sessions_userId_fkey" FOREIGN KEY ("userId") REFERENCES public.users(id);
+    ADD CONSTRAINT "sessions_userId_fkey" FOREIGN KEY ("userid") REFERENCES public.users(id); -- Alterado de "userId" para "userid"
 
 
 --
@@ -216,8 +216,7 @@ ALTER TABLE ONLY public.sessions
 --
 
 ALTER TABLE ONLY public.urls
-    ADD CONSTRAINT "urls_userId_fkey" FOREIGN KEY ("userId") REFERENCES public.users(id);
-
+    ADD CONSTRAINT "urls_userId_fkey" FOREIGN KEY ("userid") REFERENCES public.users(id); -- Alterado de "userId" para "userid"
 
 --
 -- PostgreSQL database dump complete
