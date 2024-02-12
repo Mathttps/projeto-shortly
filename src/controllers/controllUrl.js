@@ -21,7 +21,7 @@ export async function shortenUrls(req, res) {
     const createdShortUrl = await getUrlShort(shortUrl);
     const response = {
       id: createdShortUrl.rows[0].id,
-      shortUrl: createdShortUrl.rows[0].shortUrl,
+      shortUrl: createdShortUrl.rows[0].shorturl,
     };
     res.status(201).send(response);
   } catch (err) {
