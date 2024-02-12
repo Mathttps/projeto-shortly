@@ -10,9 +10,9 @@ export async function insertShortUrl(url, shortUrl, userId) {
 
 export async function getUrlShort(shortUrl) {
     const query = `
-    SELECT id, shortUrl 
+    SELECT id, shorturl 
     FROM urls 
-    WHERE shortUrl = $1;
+    WHERE shorturl = $1; 
   `;
     return db.query(query, [shortUrl]);
 }
@@ -28,7 +28,7 @@ export async function urlGetShortByIdComp(id) {
 
 export async function getUrlShortById(id) {
     const query = `
-    SELECT id, shortUrl, url 
+    SELECT id, shorturl, url 
     FROM urls 
     WHERE id = $1;
   `;
