@@ -40,11 +40,15 @@ export async function deleteTsUrl(req, res) {
   }
   
   try {
-    const userId = res.locals.userId;
+    const token = authHeader.split(' ')[1];
+
+    const decodedToken = jwt.verify(token, SECRET_KEY);
+    const userId = decodedToken.userId;
+
     const urlInfo = await urlGetShortByIdComp(id);
     
     if (urlInfo.rowCount === 0) return res.sendStatus(404);
-    if (urlInfo.rows[0].userId !== Number(userId)) return res.sendStatus(401);
+    if (urlInfo.rows[0].userId !== userId) return res.sendStatus(401);
     
     await deleteShortUrl(id);
     res.sendStatus(204);
@@ -52,6 +56,7 @@ export async function deleteTsUrl(req, res) {
     res.status(500).send(err.message);
   }
 }
+
 
 export async function redirectUrl(req, res) {
   const { shortUrl } = req.params;

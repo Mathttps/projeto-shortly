@@ -28,7 +28,7 @@ export async function urlGetShortByIdComp(id) {
 
 export async function getUrlShortById(id) {
     const query = `
-    SELECT id, shorturl as shortUrl, url 
+    SELECT id, shortUrl, url 
     FROM urls 
     WHERE id = $1;
   `;
