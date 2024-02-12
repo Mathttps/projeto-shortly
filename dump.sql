@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 12.14 (Ubuntu 12.14-0ubuntu0.20.04.1)
--- Dumped by pg_dump version 12.14 (Ubuntu 12.14-0ubuntu0.20.04.1)
+-- Dumped from database version 14.7 (Ubuntu 14.7-0ubuntu0.22.04.1)
+-- Dumped by pg_dump version 14.7 (Ubuntu 14.7-0ubuntu0.22.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -144,45 +144,39 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.sessions (id, "createdAt", "userId", token) VALUES
-(1, '2024-02-11 10:00:00', 1, 'token1'),
-(2, '2024-02-11 11:00:00', 2, 'token2');
+
 
 --
 -- Data for Name: urls; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.urls (id, url, "createdAt", "visitCount", "shortUrl", "userId") VALUES
-(1, 'https://www.example1.com', '2024-02-11 10:00:00', 0, 'abc123', 1),
-(2, 'https://www.example2.com', '2024-02-11 11:00:00', 0, 'def456', 2);
+
 
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.users (id, name, email, password, "createdAt") VALUES
-(1, 'João', 'joao@driven.com.br', 'senha123', '2024-02-11 10:00:00'),
-(2, 'Maria', 'maria@driven.com.br', 'senha456', '2024-02-11 11:00:00');
+
 
 --
 -- Name: sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.sessions_id_seq', 2, false);
+SELECT pg_catalog.setval('public.sessions_id_seq', 1, false);
 
 
 --
 -- Name: urls_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.urls_id_seq', 2, false);
+SELECT pg_catalog.setval('public.urls_id_seq', 1, false);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 2, false);
+SELECT pg_catalog.setval('public.users_id_seq', 1, false);
 
 
 --
@@ -224,28 +218,6 @@ ALTER TABLE ONLY public.sessions
 ALTER TABLE ONLY public.urls
     ADD CONSTRAINT "urls_userId_fkey" FOREIGN KEY ("userId") REFERENCES public.users(id);
 
--- Stored Procedures
--- Insert User
-CREATE OR REPLACE FUNCTION insert_user(name character varying(40), email text, password text)
-RETURNS VOID AS
-$$
-BEGIN
-    INSERT INTO users (name, email, password)
-    VALUES (name, email, password);
-END;
-$$
-LANGUAGE plpgsql;
-
--- Insert Session
-CREATE OR REPLACE FUNCTION insert_session(userId integer, token text)
-RETURNS VOID AS
-$$
-BEGIN
-    INSERT INTO sessions ("userId", token)
-    VALUES (userId, token);
-END;
-$$
-LANGUAGE plpgsql;
 
 --
 -- PostgreSQL database dump complete
