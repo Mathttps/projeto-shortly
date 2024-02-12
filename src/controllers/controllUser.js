@@ -52,7 +52,11 @@ export async function usersLocal(req, res) {
       id: user.rows[0].id,
       name: user.rows[0].name,
       visitCount: visitCount,
-      shortenedUrls: short.rows
+      shortenedUrls: short.rows.map(row => ({ 
+        id: row.id,
+        url: row.url,
+        shortUrl: row.shortUrl, 
+      }))
     };
 
     res.status(200).send(completeUser);

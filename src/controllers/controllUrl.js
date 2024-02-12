@@ -1,16 +1,25 @@
 import { nanoid } from "nanoid";
+import jwt from 'jsonwebtoken'; 
 import {  getUrlShortById, deleteShortUrl, insertShortUrl, getUrlShort, urlGetShortByIdComp,  updateUrl } from "../repositories/repoUrl.js";
 
 export async function getUrl(req, res) {
   const { id } = req.params;
   try {
-    const shortUrl = await getUrlShortById(id);
-    if (shortUrl.rowCount === 0) return res.sendStatus(404);
-    res.status(200).send(shortUrl.rows[0]);
+    const result = await getUrlShortById(id); 
+    if (result.rowCount === 0) return res.sendStatus(404);
+    const { shortUrl, url } = result.rows[0]; 
+    const responseObject = {
+      id,
+      shortUrl, 
+      url
+    };
+    res.status(200).send(responseObject);
   } catch (err) {
     res.status(500).send(err.message);
   }
 }
+
+
 
 export async function shortenUrls(req, res) {
   const { url } = req.body;
@@ -57,7 +66,6 @@ export async function deleteTsUrl(req, res) {
   }
 }
 
-
 export async function redirectUrl(req, res) {
   const { shortUrl } = req.params;
   try {
@@ -70,3 +78,5 @@ export async function redirectUrl(req, res) {
     res.status(500).send(err.message);
   }
 }
+
+
